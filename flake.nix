@@ -5,7 +5,6 @@
     nixpkgs.url = "https://channels.nixos.org/nixos-25.05-small/nixexprs.tar.xz";
     flake-utils.url = "github:numtide/flake-utils";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-    devshell.url = "github:numtide/devshell";
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
@@ -15,7 +14,6 @@
       nixpkgs,
       flake-utils,
       pre-commit-hooks,
-      devshell,
       treefmt-nix,
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -23,32 +21,37 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [
-            devshell.overlays.default
-          ];
         };
-
-        treefmt = (
-          treefmt-nix.lib.mkWrapper pkgs {
-            projectRootFile = "flake.nix";
-            programs = {
-              actionlint.enable = true;
-              deadnix.enable = true;
-              jsonfmt.enable = true;
-              just.enable = true;
-              nixfmt.enable = true;
-              prettier.enable = true;
-              taplo.enable = true;
-              typos.enable = true;
-            };
-            settings.formatter.typos.excludes = [
-              "*.jpeg"
-              "*.jpg"
-            ];
-          }
-        );
+        treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+        texlive = pkgs.texlive.combine { inherit (pkgs.texlive) scheme-context; };
       in
       {
+        # for `nix fmt`
+        formatter = treefmtEval.config.build.wrapper;
+
+        # for `nix flake check`
+        checks = {
+          # Throws an error if any of the source files are not correctly formatted
+          # when you run `nix flake check --print-build-logs`. Useful for CI
+          treefmt = treefmtEval.config.build.check self;
+          pre-commit-check = pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              format = {
+                enable = true;
+                name = "Format with treefmt";
+                pass_filenames = true;
+                entry = "${treefmtEval.config.build.wrapper}/bin/treefmt";
+                stages = [
+                  "pre-commit"
+                  "pre-push"
+                ];
+              };
+            };
+          };
+        };
+
+        # for `nix build`
         packages = {
           default =
             with pkgs;
@@ -57,48 +60,23 @@
               version = self.lastModifiedDate;
               src = ./.;
               buildInputs = [
-                zola
-                git
+                pandoc
+                texlive
               ];
               buildPhase = ''
                 mkdir -p $out
-                ${pkgs.zola}/bin/zola build -o $out -f
+                pandoc --embed-resources -s src/index.org --css=src/css/main.css -t html -o $out/index.html
+                pandoc --pdf-engine=context src/resume.org  -o $out/resume.pdf
               '';
               dontInstall = true;
             };
         };
 
-        formatter = treefmt;
-
-        checks = {
-          pre-commit-check = pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              treefmt = {
-                enable = true;
-                excludes = [ ".*" ];
-              };
-              check-merge-conflicts.enable = true;
-              end-of-file-fixer.enable = true;
-            };
-          };
-        };
-
-        devShells.default = pkgs.devshell.mkShell {
-          name = "zola";
+        devShells.default = pkgs.mkShell {
+          inherit (self.checks.${system}.pre-commit-check) shellHook;
           packages = with pkgs; [
-            zola
             git
             treefmt
-            lychee
-            just
-          ];
-          devshell.startup.pre-commit.text = self.checks.${system}.pre-commit-check.shellHook;
-          env = [
-            {
-              name = "DEVSHELL_NO_MOTD";
-              value = "1";
-            }
           ];
         };
       }

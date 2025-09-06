@@ -1,0 +1,25 @@
+body {
+  margin: auto;
+  font:
+    1rem/2 -apple-system,
+    sans-serif;
+  background-color: #f8f8f8;
+  color: #333333;
+  padding: 20px;
+  min-height: 100vh;
+  padding: 50px, 50px, 50px, 50px;
+  max-width: 55rem;
+}
+p {
+  margin: 0 0 1em;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid #007f9f;
+}
+ul {
+  display: inline-block;
+  text-align: left;
+  padding-left: 1em;
+}
