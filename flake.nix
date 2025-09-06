@@ -2,7 +2,7 @@
   description = "Franck Cuny's personal website.";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "https://channels.nixos.org/nixos-25.05-small/nixexprs.tar.xz";
     flake-utils.url = "github:numtide/flake-utils";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     devshell.url = "github:numtide/devshell";
