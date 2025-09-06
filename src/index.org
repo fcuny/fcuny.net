@@ -1,0 +1,8 @@
+👋 I'm Franck, and this is my little corner on the web.
+
+- I'm a Technical Director at [[https://www.roblox.com][Roblox]]
+- Previously, I worked at [[https://twitter.com/TwitterEng][Twitter]] for close to 8 years. Before Twitter, I worked for different startups in S.F and Paris
+- I focus on Compute Infrastructure and Reliability
+- I live in Berkeley, and I'm married to the multi-talented artist [[https://www.feliciamartinez.com/about-1][Felicia Martinez]]
+
+The simplest way to contact me is via [[mailto:hi@fcuny.net][email]].
