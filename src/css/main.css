@@ -1,14 +1,13 @@
 body {
-  margin: auto;
+  width: auto;
+  max-width: 700px;
+  padding: 0 15px;
+  margin: 5rem auto;
   font:
     1rem/2 -apple-system,
     sans-serif;
-  background-color: #f8f8f8;
-  color: #333333;
-  padding: 20px;
-  min-height: 100vh;
-  padding: 50px, 50px, 50px, 50px;
-  max-width: 55rem;
+  background-color: white;
+  color: #242936;
 }
 p {
   margin: 0 0 1em;
@@ -16,7 +15,7 @@ p {
 a {
   color: inherit;
   text-decoration: none;
-  border-bottom: 1px solid #007f9f;
+  border-bottom: 2px solid #007f9f;
 }
 ul {
   display: inline-block;
