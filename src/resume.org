@@ -20,7 +20,7 @@ Seeking opportunities to lead transformative reliability initiatives, mentor the
 
 * Experience
 ** Roblox, San Mateo
-| Site Reliability Engineer | Technical Directory (IC7) | August 2024 - to date  |
+| Site Reliability Engineer | Technical Director (IC7)  | August 2024 - to date  |
 | Site Reliability Engineer | Principal II (IC6)        | Feb 2022 - August 2024 |
 
 As a Team Lead for the Site Reliability group, I define road-maps, milestones, and identify areas where SREs can partner with different teams to improve overall reliability of our infrastructure and services. Key projects and responsibilities include:
