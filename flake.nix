@@ -23,7 +23,6 @@
           inherit system;
         };
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
-        texlive = pkgs.texlive.combine { inherit (pkgs.texlive) scheme-context; };
       in
       {
         # for `nix fmt`
@@ -61,12 +60,11 @@
               src = ./.;
               buildInputs = [
                 pandoc
-                texlive
               ];
               buildPhase = ''
                 mkdir -p $out
                 pandoc --embed-resources -s src/index.org --css=src/css/main.css -t html -o $out/index.html
-                pandoc --pdf-engine=context src/resume.org  -o $out/resume.pdf
+                pandoc --embed-resources -s src/resume.org --css=src/css/resume.css -t html  -o $out/resume.html
               '';
               dontInstall = true;
             };

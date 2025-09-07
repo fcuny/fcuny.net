@@ -25,7 +25,7 @@ Seeking opportunities to lead transformative reliability initiatives, mentor the
 
 As a Team Lead for the Site Reliability group, I define road-maps, milestones, and identify areas where SREs can partner with different teams to improve overall reliability of our infrastructure and services. Key projects and responsibilities include:
 
-- [[https://corp.roblox.com/newsroom/2023/12/making-robloxs-infrastructure-efficient-resilient][*Cell Architecture Implementation]]*: Led the SRE effort to transition from monolithic Compute clusters to a Cell architecture, significantly enhancing Roblox's infrastructure resilience and efficiency. Developed migration plans, identified necessary automation, and drove production readiness for this critical reliability improvement.
+- *[[https://corp.roblox.com/newsroom/2023/12/making-robloxs-infrastructure-efficient-resilient][Cell Architecture Implementation* ]]: Led the SRE effort to transition from monolithic Compute clusters to a Cell architecture, significantly enhancing Roblox's infrastructure resilience and efficiency. Developed migration plans, identified necessary automation, and drove production readiness for this critical reliability improvement.
 
 - *Edge Infrastructure Migration*: Spearheaded the migration from HAproxy to Envoy at the edge, aimed at reducing failure domains, improving performance by streamlining the proxy chain, and enabling user traffic steering to specific cells from the edge.
 
