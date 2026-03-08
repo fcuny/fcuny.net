@@ -63,8 +63,15 @@
               ];
               buildPhase = ''
                 mkdir -p $out
-                pandoc --embed-resources -s src/index.org --css=src/css/main.css -t html -o $out/index.html
-                pandoc --embed-resources -s src/resume.org --css=src/css/resume.css -t html  -o $out/resume.html
+                pandoc --standalone --embed-resources \
+                       --css=src/css/style.css \
+                       --metadata title="Franck Cuny" \
+                       -t html5 -o $out/index.html src/index.md
+                pandoc --standalone --embed-resources \
+                       --css=src/css/style.css \
+                       --metadata title="Franck Cuny - Resume" \
+                       -t html5 -o $out/resume.html src/resume.md
+                echo "fcuny.net" > $out/CNAME
               '';
               dontInstall = true;
             };
@@ -74,6 +81,7 @@
           inherit (self.checks.${system}.pre-commit-check) shellHook;
           packages = with pkgs; [
             git
+            pandoc
             treefmt
           ];
         };
