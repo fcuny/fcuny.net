@@ -2,7 +2,7 @@
   description = "Franck Cuny's personal website.";
 
   inputs = {
-    nixpkgs.url = "https://channels.nixos.org/nixos-25.05-small/nixexprs.tar.xz";
+    nixpkgs.url = "https://channels.nixos.org/nixos-25.11-small/nixexprs.tar.xz";
     flake-utils.url = "github:numtide/flake-utils";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     treefmt-nix.url = "github:numtide/treefmt-nix";
@@ -63,15 +63,16 @@
               ];
               buildPhase = ''
                 mkdir -p $out
-                pandoc --standalone --embed-resources \
-                       --css=src/css/style.css \
+                pandoc --standalone \
+                       --template=src/templates/page.html \
                        --metadata title="Franck Cuny" \
                        -t html5 -o $out/index.html src/index.md
-                pandoc --standalone --embed-resources \
-                       --css=src/css/style.css \
+                pandoc --standalone \
+                       --template=src/templates/page.html \
                        --metadata title="Franck Cuny - Resume" \
                        -t html5 -o $out/resume.html src/resume.md
                 echo "fcuny.net" > $out/CNAME
+                cp -r src/static $out/
               '';
               dontInstall = true;
             };
