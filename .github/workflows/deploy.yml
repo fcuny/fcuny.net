@@ -42,3 +42,35 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  verify:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify Go vanity imports
+        run: |
+          # Read modules from config and verify each one
+          modules=$(jq -r '.modules[]' src/go-modules.json)
+          domain=$(jq -r '.domain' src/go-modules.json)
+
+          for module in $modules; do
+            echo "Checking $domain/$module..."
+
+            # Fetch the page and check for go-import meta tag
+            if curl -sf "https://$domain/$module/" | grep -q "go-import.*$domain/$module"; then
+              echo "  ✓ go-import meta tag found"
+            else
+              echo "  ✗ go-import meta tag missing"
+              exit 1
+            fi
+
+            # Verify Go can resolve the module
+            if go list -m -json "$domain/$module@latest" > /dev/null 2>&1; then
+              echo "  ✓ Go module resolution works"
+            else
+              echo "  ⚠ Go module resolution failed (module may not exist on GitHub yet)"
+            fi
+          done

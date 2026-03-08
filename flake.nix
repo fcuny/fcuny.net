@@ -60,6 +60,7 @@
               src = ./.;
               buildInputs = [
                 pandoc
+                python3
               ];
               buildPhase = ''
                 mkdir -p $out
@@ -73,6 +74,9 @@
                        -t html5 -o $out/resume.html src/resume.md
                 echo "fcuny.net" > $out/CNAME
                 cp -r src/static $out/
+
+                # Generate Go vanity import pages
+                python3 scripts/generate-go-imports.py src/go-modules.json $out
               '';
               dontInstall = true;
             };
