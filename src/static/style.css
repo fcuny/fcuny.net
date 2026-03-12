@@ -4,6 +4,8 @@ html {
 
 body {
   font-family: -apple-system, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.3em;
   max-width: 48em;
   font-weight: 450;
   color: #000;
@@ -35,7 +37,6 @@ ul {
 
 h1,
 h2 {
-  line-height: 1.2;
   margin-top: 0;
   margin-bottom: 0.5em;
   color: inherit;
