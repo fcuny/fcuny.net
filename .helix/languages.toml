@@ -1,0 +1,14 @@
+[[language]]
+name = "nix"
+auto-format = true
+formatter.command = "nixfmt"
+
+[[language]]
+name = "css"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "css"]}
+
+[[language]]
+name = "markdown"
+auto-format = true
+formatter = { command = "prettier", args = ['--parser', "markdown"]}

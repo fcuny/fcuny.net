@@ -1,21 +1,14 @@
 {
   projectRootFile = "flake.nix";
   programs = {
-    nixfmt.enable = true;
-    statix.enable = true;
+    #keep-sorted start
     actionlint.enable = true;
     deadnix.enable = true;
+    keep-sorted.enable = true;
+    nixfmt.enable = true;
     prettier.enable = true;
+    statix.enable = true;
     typos.enable = true;
-  };
-  settings = {
-    formatter = {
-      nixfmt.includes = [
-        "*.nix"
-      ];
-      statix.includes = [
-        "*.nix"
-      ];
-    };
+    #keep-sorted end
   };
 }

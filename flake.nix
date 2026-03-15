@@ -85,9 +85,13 @@
         devShells.default = pkgs.mkShell {
           inherit (self.checks.${system}.pre-commit-check) shellHook;
           packages = with pkgs; [
+            #keep-sorted start
             git
+            nodePackages.prettier
             pandoc
             treefmt
+            vscode-langservers-extracted
+            #keep-sorted end
           ];
         };
       }
