@@ -87,10 +87,13 @@
           packages = with pkgs; [
             #keep-sorted start
             git
+            just
             nodePackages.prettier
             pandoc
+            python3
             treefmt
             vscode-langservers-extracted
+            watchexec
             #keep-sorted end
           ];
         };

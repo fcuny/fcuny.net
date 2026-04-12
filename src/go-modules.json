@@ -1,5 +1,5 @@
 {
   "domain": "fcuny.net",
   "github_user": "fcuny",
-  "modules": ["ssh-cert-info"]
+  "modules": ["ssh-cert-info", "certcheck"]
 }
